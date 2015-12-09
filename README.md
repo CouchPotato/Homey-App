@@ -1,0 +1,2 @@
+# CouchPotatoHomey
+Homey CouchPotato App
