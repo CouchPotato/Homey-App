@@ -1,0 +1,94 @@
+{
+    "id": "couchpota.to.homey",
+    "name": {
+        "en": "CouchPotato"
+    },
+    "author": {
+        "name": "Ruud Burger",
+        "email": "ruud@crashdummy.nl"
+    },
+	"permissions": [
+		"homey:manager:speech-output",
+		"homey:manager:ledring",
+	],
+    "speech": [
+		{
+			"id": "download",
+			"importance": 1,
+			"triggers": {
+				"en": [ "download", "download the movie" ],
+				"nl": [ "download", "download de film" ]
+			}
+		},
+		{
+			"id": "add",
+			"importance": 1,
+			"triggers": {
+				"en": [ "add movie", "add the movie" ],
+				"nl": [ "de film", "download de film" ]
+			}
+		},
+		{
+			"id": "hd",
+			"importance": 1,
+			"triggers": {
+				"en": [ "HD", "H D" ],
+				"nl": [ "hd", "ha dee" ]
+			}
+		},
+		{
+			"id": "best",
+			"importance": 1,
+			"triggers": {
+				"en": [ "best", "in the best quality" ],
+				"nl": [ "beste", "in beste kwaliteit", "in de beste kwaliteit" ]
+			}
+		},
+		{
+			"id": "3d",
+			"importance": 1,
+			"triggers": {
+				"en": [ "3D", "in 3D", "in Three D" ],
+				"nl": [ "3D", "in 3D", "in drie d", "in drie dee" ]
+			}
+		},
+		{
+			"id": "to_watchlist",
+			"importance": 1,
+			"triggers": {
+				"en": [ "to my watchlist", "to my collection" ],
+				"nl": [ "aan de filmlijst", "aan mijn watchlist", "aan mijn lijst", "aan mijn filmlijst", "aan mijn collectie" ]
+			}
+		},
+		{
+			"id": "in_watchlist",
+			"importance": 1,
+			"triggers": {
+				"en": [ "in my watchlist", "in my collection" ],
+				"nl": [ "in mijn filmlijst", "in mijn watchlist", "in mijn lijst", "in mijn filmlijst", "in mijn collectie" ]
+			}
+		}
+    ],
+	"flow": {
+		"triggers": [
+			{
+				"id": "snatched",
+				"title": {
+					"en": "Movie downloaded"
+				}
+			},
+			{
+				"id": "downloaded",
+				"title": {
+					"en": "Movie snatched"
+				}
+			},
+			{
+				"id": "added",
+				"title": {
+					"en": "Movie added to watchlist"
+				}
+			}
+		]
+	}
+}
