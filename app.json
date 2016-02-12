@@ -1,5 +1,7 @@
 {
-    "id": "couchpota.to.homey",
+    "id": "couchpota.to",
+	"version": "0.1.0",
+	"compatibility": ">=0.8.17",
     "name": {
         "en": "CouchPotato"
     },
@@ -9,8 +11,11 @@
     },
 	"permissions": [
 		"homey:manager:speech-output",
-		"homey:manager:ledring",
+		"homey:manager:ledring"
 	],
+	"dependencies": {
+		"request": "*"
+	},
     "speech": [
 		{
 			"id": "download",
