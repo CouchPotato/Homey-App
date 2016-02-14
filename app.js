@@ -1,6 +1,6 @@
 "use strict";
 
-var request = require('request');
+var request = require('request-promise');
 var Base = require('./base.js');
 
 var webhook_id;
@@ -57,7 +57,13 @@ var App = Base.extend({
 				if(['download', 'add'].indexOf(trigger.id) > -1){
 					var movie_name = speech.transcript.substring(trigger.position + trigger.text.length);
 					Homey.log(movie_name);
-					self.doSearch(movie_name, self.doConfirmResult.bind(self));
+					self.doSearch(movie_name)
+						.then(self.doConfirmResult.bind(self))
+						.catch(function(err){ Homey.log(err); })
+						.then(self.doAdd.bind(self));
+				}
+				else if(['watchlist'].indexOf(trigger.id) > -1){
+
 				}
 
 				// trigger.id == watchlist
@@ -84,21 +90,25 @@ var App = Base.extend({
 			self.updateSettings();
 		});
 
-		//Homey.on('trigger.couchpotato_webhook', function(args, callback){
-		//
-		//	var event = args.event;
-		//
-		//	if(event == 'added'){
-		//		Homey.manager('speech-output').say( __("%m added to watchlist") );
-		//	}
-		//	else if (event == 'snatched'){
-		//		Homey.manager('speech-output').say( __("%m snatched") );
-		//	}
-		//	else if (event == 'downloaded'){
-		//		Homey.manager('speech-output').say( __("%m downloaded") );
-		//	}
-		//
-		//});
+		Homey.on('trigger.couchpotato_webhook', function(args, callback){
+
+			var event = args.event;
+
+			if (event == 'snatched'){
+				//Homey.manager('speech-output').say( __("%m snatched") );
+				Homey.manager('flow').trigger('snatched', {
+					movie: movie.original_title
+				});
+
+			}
+			else if (event == 'downloaded'){
+				//Homey.manager('speech-output').say( __("%m downloaded") );
+				Homey.manager('flow').trigger('snatched', {
+					movie: movie.original_title
+				});
+			}
+
+		});
 
 	},
 
@@ -161,24 +171,60 @@ var App = Base.extend({
 	},
 
 	doSearch: function(q, callback){
-		Homey.log('doSearch');
+		Homey.log('Search for: ' + q);
 
 		return this.request('search', {
-			'q': q,
-			'type': 'movie'
-		}, callback);
+			q: q,
+			type: 'movie',
+			limit: 1
+		});
 
 	},
 
 	doConfirmResult: function(data){
 		Homey.log('doConfirmResult');
-		Homey.log(data);
+		Homey.log(arguments);
+
+		if(data && data.movies && data.movies.length > 0){
+			var movie = data.movies[0];
+
+			var question = __('Do you want me to add %m to your wanted list?').replace(/%m/g, movie.original_title);
+
+			return new Promise(function(resolve, reject){
+				//Homey.manager( 'speech-input').confirm(question, function(err, confirmed){
+					var confirmed = true;
+
+					Homey.log('Adding ' + movie.original_title + ': ' + confirmed );
+					if(confirmed){
+						return resolve(movie);
+					}
+					else {
+						Homey.manager('speech-output').say(__('Not adding it.'));
+						return reject();
+					}
+
+				//});
+			});
+		}
+		else {
+			Homey.manager('speech-output').say(__('Sorry, couldn\'t find anything'));
+			return new OperationalError('Can\'t find anything');
+		}
 
 	},
 
-	doAdd: function(){
-		Homey.log('doAdd');
+	doAdd: function(movie){
 
+		var say = __('Adding %m').replace(/%m/g, movie.original_title);
+		Homey.manager('flow').trigger('added', {
+			movie: movie.original_title
+		});
+		Homey.log(say);
+		//Homey.manager('speech-output').say(say);
+
+		return this.request('movie.add', {
+			identifier: movie.imdb
+		});
 	},
 
 	doCheckWatchlist: function(){
@@ -197,7 +243,7 @@ var App = Base.extend({
 	 * @param args
 	 * @param callback
 	 */
-	request: function(endpoint, args, callback){
+	request: function(endpoint, args){
 		Homey.log('request');
 
 		var host = Homey.manager('settings').get('host'),
@@ -209,9 +255,8 @@ var App = Base.extend({
 		Homey.log(url);
 
 		return request.get({
-			url: url
-		}).on('response', function(response) {
-			callback(response);
+			url: url,
+			json: true
 		});
 
 	},

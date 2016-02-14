@@ -1,0 +1,22 @@
+{
+  "name": "couchpota.to.homey",
+  "version": "1.0.0",
+  "description": "Allow adding movies to your watchlist via [Homey](https://www.athom.com/)",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "request-promise": "^2.0.0"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuudBurger/CouchPotatoHomey.git"
+  },
+  "author": "Ruud Burger",
+  "bugs": {
+    "url": "https://github.com/RuudBurger/CouchPotatoHomey/issues"
+  },
+  "homepage": "https://github.com/RuudBurger/CouchPotatoHomey#readme"
+}

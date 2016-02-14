@@ -10,11 +10,13 @@
         "email": "ruud@crashdummy.nl"
     },
 	"permissions": [
+		"homey:manager:speech-input",
 		"homey:manager:speech-output",
 		"homey:manager:ledring"
 	],
 	"dependencies": {
-		"request": "*"
+		"request-promise": "*",
+		"bluebird": "*"
 	},
     "speech": [
 		{
@@ -80,19 +82,46 @@
 				"id": "snatched",
 				"title": {
 					"en": "Movie downloaded"
-				}
+				},
+				"tokens": [
+					{
+						"name": "movie",
+						"title": {
+							"nl": "film",
+							"en": "movie"
+						}
+					}
+				]
 			},
 			{
 				"id": "downloaded",
 				"title": {
 					"en": "Movie snatched"
-				}
+				},
+				"tokens": [
+					{
+						"name": "movie",
+						"title": {
+							"nl": "film",
+							"en": "movie"
+						}
+					}
+				]
 			},
 			{
 				"id": "added",
 				"title": {
 					"en": "Movie added to watchlist"
-				}
+				},
+				"tokens": [
+					{
+						"name": "movie",
+						"title": {
+							"nl": "film",
+							"en": "movie"
+						}
+					}
+				]
 			}
 		]
 	}
