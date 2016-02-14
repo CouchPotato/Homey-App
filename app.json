@@ -89,6 +89,10 @@
 						"title": {
 							"nl": "film",
 							"en": "movie"
+						},
+						"example": {
+							"en": "Movie Name 2015",
+							"nl": "Film titel 2015"
 						}
 					}
 				]
@@ -104,6 +108,10 @@
 						"title": {
 							"nl": "film",
 							"en": "movie"
+						},
+						"example": {
+							"en": "Movie Name 2015",
+							"nl": "Film titel 2015"
 						}
 					}
 				]
@@ -119,6 +127,10 @@
 						"title": {
 							"nl": "film",
 							"en": "movie"
+						},
+						"example": {
+							"en": "Movie Name 2015",
+							"nl": "Film titel 2015"
 						}
 					}
 				]

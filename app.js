@@ -23,16 +23,7 @@ var App = Base.extend({
 
 		this.updateSettings();
 		this.listenToSpeech();
-
-		// Homey.manager('flow').trigger('downloaded');
-		// Homey.manager('flow').trigger('snatched');
-		// Homey.manager('flow').trigger('added');
 		this.listenToTriggers();
-
-		// Register initial webhook
-		//if (Homey.settings.url && Homey.settings.id && Homey.settings.secret) {
-		//	this.registerWebhook(Homey.settings);
-		//}
 
 	},
 
@@ -119,36 +110,45 @@ var App = Base.extend({
 		Homey.log('updateSettings');
 		var self = this;
 
-		//self.registerWebhook(settings, callback);
+
+		// Register initial webhook
+		this.registerWebhook();
 	},
 
 	/**
 	 * Register webhook
 	 */
-	registerWebhook: function(settings, callback){
+	registerWebhook: function(){
+		var self = this;
 		Homey.log('registerWebhook');
 
+		var url = Homey.manager('settings').get('webhook_url'),
+			id = Homey.manager('settings').get('webhook_id'),
+			secret = Homey.manager('settings').get('webhook_secret');
+
+		if(!url || !id || !secret) return;
+
 		Homey.manager('cloud').registerWebhook(
-			settings.id,
-			settings.secret,
+			id,
+			secret,
 			{},
 			self.incomingWebhook,
 			function (err, result){
-				if (err || !result){
-
-					// Return failure
-					if(callback)
-						callback(null, false);
-				}
-				else {
-					// Unregister old webhook
-					if(webhook_id && webhook_id !== settings.id)
-						Homey.manager('cloud').unregisterWebhook(webhook_id);
-
-					// Return success
-					if(callback)
-						callback(null, true);
-				}
+				//if (err || !result){
+				//
+				//	// Return failure
+				//	if(callback)
+				//		callback(null, false);
+				//}
+				//else {
+				//	// Unregister old webhook
+				//	if(webhook_id && webhook_id !== settings.id)
+				//		Homey.manager('cloud').unregisterWebhook(webhook_id);
+				//
+				//	// Return success
+				//	if(callback)
+				//		callback(null, true);
+				//}
 			}
 		);
 
@@ -161,7 +161,7 @@ var App = Base.extend({
 	 * @param args
 	 */
 	incomingWebhook: function(args){
-		Homey.log('incomingWebhook');
+		Homey.log('incomingWebhook: ', args);
 
 		// Trigger event
 		Homey.manager('flow').trigger('couchpotato_webhook', {
