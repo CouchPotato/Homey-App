@@ -17,15 +17,31 @@
 		<input id="api" type="text" value="" />
 	</div>
 
+	<h2>Webhook</h2>
+	<p>This lets CouchPotato send snatched and download updates to your Homey. Create a new one at <a href="https://webhooks.athom.com/" target="_blank">webhooks.athom.com</a></p>
+	<div class="field row">
+		<label for="webhook_url">Url</label>
+		<input id="webhook_url" type="text" value="" />
+	</div>
+	<div class="field row">
+		<label for="webhook_id">ID</label>
+		<input id="webhook_id" type="text" value="" />
+	</div>
+	<div class="field row">
+		<label for="webhook_secret">Secret</label>
+		<input id="webhook_secret" type="text" value="" />
+	</div>
+
 	<h2>Other settings</h2>
 	<div class="field">
 		<input id="use_default" type="checkbox" value="1" />
-		<label for="api">Use default speech settings</label>
+		<label for="use_default">Use default speech settings</label>
 		<p>Listen to "Add the movie Moviename" or "Download the movie Moviename". Otherwise use your own flow to trigger CouchPotato.</p>
 	</div>
 	<div class="field">
-		<input id="confirm_on_add" type="checkbox" value="1" />
-		<label for="api">Confirm movie before adding</label>
+		<input id="skip_confirm" type="checkbox" value="1" />
+		<label for="skip_confirm">Don't confirm movie before adding</label>
+		<p>For when you're feeling lucky. Not recommended though.</p>
 	</div>
 
 	<!--// Connect qualities, maybe allow people to fill in words they want to trigger the qualities?-->

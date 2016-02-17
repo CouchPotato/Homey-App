@@ -32,8 +32,8 @@ var App = Base.extend({
 		Homey.log('constructor');
 
 		this.updateSettings();
+		this.listenToSettingsChange();
 		this.listenToSpeech();
-		this.listenToTriggers();
 		this.listenToActions();
 	},
 
@@ -78,40 +78,25 @@ var App = Base.extend({
 	},
 
 	/**
-	 * Listen to webhook and fire events based on incoming data
+	 * Listen to settings
 	 */
-	listenToTriggers: function(){
+	listenToSettingsChange: function(){
 		var self = this;
-		Homey.log('listenToTriggers');
+		Homey.log('listenToSettingsChange');
 
 		Homey.manager('settings').on('set', function(){
 			self.updateSettings();
 		});
 
-		Homey.on('trigger.couchpotato_webhook', function(args, callback){
-
-			var event = args.event;
-
-			if (event == 'snatched'){
-				//Homey.manager('speech-output').say( __("%m snatched") );
-				Homey.manager('flow').trigger('snatched', {
-					movie: movie.original_title
-				});
-			}
-			else if (event == 'downloaded'){
-				//Homey.manager('speech-output').say( __("%m downloaded") );
-				Homey.manager('flow').trigger('downloaded', {
-					movie: movie.original_title
-				});
-			}
-
-		});
-
 	},
 
+	/**
+	 * Listen to actions
+	 */
 	listenToActions: function(){
 		var self = this;
 
+		// Search for all movies in the wanted list
 		Homey.manager('flow').on('action.search_all', function(callback){
 			self.request('movie.searcher.full_search')
 				.then(function(){
@@ -120,12 +105,14 @@ var App = Base.extend({
 				});
 		});
 
+		// Ask what movie the user wants added
 		Homey.manager('flow').on('action.ask', function(callback, args){
 			Homey.log('action.ask', args);
 			self.askAndAdd();
 			callback(null, true);
 		});
 
+		// Filter out words before adding
 		Homey.manager('flow').on('action.filter_and_add', function(callback, args){
 			Homey.log('action.filter_and_add', args);
 
@@ -162,6 +149,10 @@ var App = Base.extend({
 			id = Homey.manager('settings').get('webhook_id'),
 			secret = Homey.manager('settings').get('webhook_secret');
 
+		// Unregister if changed
+		if(webhook_id && webhook_id != id) Homey.manager('cloud').unregisterWebhook(webhook_id);
+
+		// Don't register if not all values are set
 		if(!url || !id || !secret) return;
 
 		Homey.manager('cloud').registerWebhook(
@@ -169,13 +160,11 @@ var App = Base.extend({
 			secret,
 			{},
 			self.incomingWebhook,
-			function (err, result){
-
-			}
+			function(){}
 		);
 
 		// Store used webhook internally
-		webhook_id = settings.id;
+		webhook_id = id;
 	},
 
 	/**
@@ -185,10 +174,20 @@ var App = Base.extend({
 	incomingWebhook: function(err, args){
 		Homey.log('incomingWebhook: ', args);
 
-		// Trigger event
-		Homey.manager('flow').trigger('couchpotato_webhook', {
-			event: args.body.event
-		});
+		var event = args.body.event;
+
+		if (event == 'snatched'){
+			//Homey.manager('speech-output').say( __("%m snatched") );
+			Homey.manager('flow').trigger('snatched', {
+				movie: movie.original_title
+			});
+		}
+		else if (event == 'downloaded'){
+			//Homey.manager('speech-output').say( __("%m downloaded") );
+			Homey.manager('flow').trigger('downloaded', {
+				movie: movie.original_title
+			});
+		}
 
 	},
 
@@ -218,10 +217,10 @@ var App = Base.extend({
 			Homey.manager( 'speech-input').ask(__('What movie do you want me to add?'), function(err, result){
 				Homey.log('doAsk results', err, result);
 				if(result){
-					return resolve(result);
+					resolve(result);
 				}
 				else {
-					return reject();
+					reject();
 				}
 
 			});
@@ -260,26 +259,30 @@ var App = Base.extend({
 
 	doConfirmResult: function(data){
 		Homey.log('doConfirmResult');
-		Homey.log(arguments);
 
 		if(data && data.movies && data.movies.length > 0){
 			var movie = data.movies[0];
 
-			var question = __('Do you want me to add __title__ to your wanted list?', {'title': movie.original_title});
-
 			return new Promise(function(resolve, reject){
-				Homey.manager( 'speech-input').confirm(question, function(err, confirmed){
-					//var confirmed = true;
+				if(Homey.manager('settings').get('skip_confirm')){
+					resolve(movie);
+				}
+				else {
+					var question = __('Do you want me to add __title__ to your wanted list?', {'title': movie.original_title});
 
-					Homey.log('Adding ' + movie.original_title + ': ' + confirmed );
-					if(confirmed){
-						return resolve(movie);
-					}
-					else {
-						return reject(__('Not adding it.'));
-					}
+					Homey.manager( 'speech-input').confirm(question, function(err, confirmed){
+						//var confirmed = true;
 
-				});
+						Homey.log('Adding ' + movie.original_title + ': ' + confirmed );
+						if(confirmed){
+							resolve(movie);
+						}
+						else {
+							reject(__('Not adding it.'));
+						}
+
+					});
+				}
 			});
 		}
 		else {
