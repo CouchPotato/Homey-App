@@ -19,7 +19,7 @@ var webhook_id;
 var debug = true;
 var log = function(message){
 	if(debug){
-		Homey.log(message)
+		Homey.log('Saying: ' + message)
 	}
 	else {
 		Homey.manager('speech-output').say(message);
@@ -171,22 +171,30 @@ var App = Base.extend({
 	 * Catch incoming webhook
 	 * @param args
 	 */
-	incomingWebhook: function(err, args){
+	incomingWebhook: function(args){
 		Homey.log('incomingWebhook: ', args);
 
-		var event = args.body.event;
+		var message = args.body.message,
+			type = args.body.type,
+			movie = args.body.movie;
 
-		if (event == 'snatched'){
-			//Homey.manager('speech-output').say( __("%m snatched") );
+		if (type == 'movie.snatched'){
 			Homey.manager('flow').trigger('snatched', {
-				movie: movie.original_title
+				movie: movie
 			});
 		}
-		else if (event == 'downloaded'){
-			//Homey.manager('speech-output').say( __("%m downloaded") );
+		else if (type == 'renamer.after'){
 			Homey.manager('flow').trigger('downloaded', {
-				movie: movie.original_title
+				movie: movie
 			});
+		}
+		else if (type == 'media.available'){
+			Homey.manager('flow').trigger('dashboard', {
+				movie: movie
+			});
+		}
+		else if (type == 'test'){
+			log(message);
 		}
 
 	},
