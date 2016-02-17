@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 <head>
-
+	<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
 </head>
 <body>
+	<h1>CouchPotato Settings</h1>
+	<p>Please make sure to fill in the api settings before trying anything, there is no error checking yet</p>
 
-<fieldset>
-	<legend>API settings</legend>
-
+	<h2>API settings</h2>
 	<div class="field row">
 		<label for="host">Host</label>
 		<input id="host" type="text" value="" />
@@ -16,34 +16,53 @@
 		<label for="api">API key</label>
 		<input id="api" type="text" value="" />
 	</div>
-</fieldset
 
-<!--// Connect qualities, maybe allow people to fill in words they want to trigger the qualities?-->
-<!--// HD -> HD, high definition-->
-<!--// Best -> Best-->
-<!--// 3D -> 3D-->>
+	<h2>Other settings</h2>
+	<div class="field">
+		<input id="use_default" type="checkbox" value="1" />
+		<label for="api">Use default speech settings</label>
+		<p>Listen to "Add the movie Moviename" or "Download the movie Moviename". Otherwise use your own flow to trigger CouchPotato.</p>
+	</div>
+	<div class="field">
+		<input id="confirm_on_add" type="checkbox" value="1" />
+		<label for="api">Confirm movie before adding</label>
+	</div>
 
-<button class="right" onclick="save()">Save changes</button>
+	<!--// Connect qualities, maybe allow people to fill in words they want to trigger the qualities?-->
+	<!--// HD -> HD, high definition-->
+	<!--// Best -> Best-->
+	<!--// 3D -> 3D-->
 
-<script type="text/javascript">
-	function onHomeyReady(){
+	<script type="text/javascript">
 
-		Homey.get('host', function(er, host){
-			document.getElementById('host').value = host;
+		var onHomeyReady = function(){
+			var loaded = 0,
+				inputs = $('input');
+
+			inputs.each(function(nr, el){
+				el = $(el);
+
+				Homey.get(el.attr('id'), function(er, value){
+					if(el.attr('type') == 'checkbox'){
+						el.prop('checked', value);
+					}
+					else {
+						el.val(value);
+					}
+
+					loaded++;
+
+					if(loaded == inputs.length)
+						Homey.ready();
+				});
+
+			});
+		};
+
+		$('body').on('change keyup paste', 'input', function(e){
+			var el = $(e.currentTarget);
+			var value = el.attr('type') == 'checkbox' ? el.prop('checked') : el.val();
+			Homey.set(el.prop('id'), value);
 		});
-		Homey.get('api', function(er, api){
-			document.getElementById('api').value = api;
-		});
 
-		Homey.ready();
-	}
-
-	function save() {
-		Homey.set('host', document.getElementById('host').value);
-		Homey.set('api', document.getElementById('api').value);
-	}
-</script>
-
-
-</body>
-</html>
+	</script>

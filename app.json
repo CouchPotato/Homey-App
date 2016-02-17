@@ -23,8 +23,8 @@
 			"id": "download",
 			"importance": 1,
 			"triggers": {
-				"en": [ "download", "download the movie" ],
-				"nl": [ "download", "download de film" ]
+				"en": [ "download the movie" ],
+				"nl": [ "download de film" ]
 			}
 		},
 		{
@@ -36,43 +36,11 @@
 			}
 		},
 		{
-			"id": "hd",
-			"importance": 1,
-			"triggers": {
-				"en": [ "HD", "H D" ],
-				"nl": [ "hd", "ha dee" ]
-			}
-		},
-		{
-			"id": "best",
-			"importance": 1,
-			"triggers": {
-				"en": [ "best", "in the best quality" ],
-				"nl": [ "beste", "in beste kwaliteit", "in de beste kwaliteit" ]
-			}
-		},
-		{
-			"id": "3d",
-			"importance": 1,
-			"triggers": {
-				"en": [ "3D", "in 3D", "in Three D" ],
-				"nl": [ "3D", "in 3D", "in drie d", "in drie dee" ]
-			}
-		},
-		{
 			"id": "to_watchlist",
 			"importance": 1,
 			"triggers": {
 				"en": [ "to my watchlist", "to my collection" ],
 				"nl": [ "aan de filmlijst", "aan mijn watchlist", "aan mijn lijst", "aan mijn filmlijst", "aan mijn collectie" ]
-			}
-		},
-		{
-			"id": "in_watchlist",
-			"importance": 1,
-			"triggers": {
-				"en": [ "in my watchlist", "in my collection" ],
-				"nl": [ "in mijn filmlijst", "in mijn watchlist", "in mijn lijst", "in mijn filmlijst", "in mijn collectie" ]
 			}
 		}
     ],
@@ -81,7 +49,8 @@
 			{
 				"id": "snatched",
 				"title": {
-					"en": "Movie downloaded"
+					"en": "Movie downloaded",
+					"nl": "Film gedownload"
 				},
 				"tokens": [
 					{
@@ -100,7 +69,8 @@
 			{
 				"id": "downloaded",
 				"title": {
-					"en": "Movie snatched"
+					"en": "Movie snatched",
+					"nl": "Film naar downloader gestuurd"
 				},
 				"tokens": [
 					{
@@ -119,7 +89,8 @@
 			{
 				"id": "added",
 				"title": {
-					"en": "Movie added to watchlist"
+					"en": "Movie added to watchlist",
+					"nl": "Film toegevoegd aan watchlist"
 				},
 				"tokens": [
 					{
@@ -134,6 +105,73 @@
 						}
 					}
 				]
+			},
+			{
+				"id": "dashboard",
+				"title": {
+					"en": "Movie found, but needs action from dashboard",
+					"nl": "Film gevonden, maar heeft actie op dashboard nodig"
+				},
+				"tokens": [
+					{
+						"name": "movie",
+						"title": {
+							"nl": "film",
+							"en": "movie"
+						},
+						"example": {
+							"en": "Movie Name 2015",
+							"nl": "Film titel 2015"
+						}
+					}
+				]
+			}
+		],
+		"actions": [
+			{
+				"id": "filter_and_add",
+				"title": {
+					"en": "Filter and add",
+					"nl": "Filter en toevoegen"
+				},
+				"droptoken": true,
+				"args": [
+					{
+						"name": "remove",
+						"type": "text",
+						"placeholder": {
+							"nl": "Verwijder woorden",
+							"en": "Remove words"
+						}
+					}
+				]
+			},
+			{
+				"id": "add_movie",
+				"title": {
+					"en": "Add a movie by title",
+					"nl": "Voeg een film toe op titel"
+				},
+				"args": [
+					{
+						"name": "movie",
+						"type": "text"
+					}
+				]
+			},
+			{
+				"id": "search_all",
+				"title": {
+					"en": "Search all movies in wanted",
+					"nl": "Zoek alle films in wanted"
+				}
+			},
+			{
+				"id": "ask",
+				"title": {
+					"en": "Ask what movie to add",
+					"nl": "Vraag om de film toe te voegen"
+				}
 			}
 		]
 	}
