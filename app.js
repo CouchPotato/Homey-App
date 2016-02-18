@@ -210,7 +210,7 @@ var App = Base.extend({
 
 		return self.doSearch(movie_name)
 			.then(self.doConfirmResult.bind(self))
-			.catch(function(err){ Homey.log(err); })
+			.catch(function(err){ log(err); })
 			.then(self.doAdd.bind(self));
 	},
 
@@ -242,7 +242,7 @@ var App = Base.extend({
 				log(__('messages.sorry_couldnt_add'));
 			})
 			.then(self.doConfirmResult.bind(self))
-			.catch(function(err){ Homey.log(err); })
+			.catch(function(err){ log(err); })
 			.then(self.doAdd.bind(self));
 	},
 
