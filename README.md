@@ -13,9 +13,7 @@ You can talk to it, tell it to do stuff, it's like the future.
 
 ## Flows
 
-When         | Then
------------- | -------------
-![when](https://cloud.githubusercontent.com/assets/38136/13137335/93b791d6-d620-11e5-9dbf-4fefdf6f9ace.jpg) | ![then](https://cloud.githubusercontent.com/assets/38136/13137182/9eb273cc-d61f-11e5-83b6-6fd2984bb3f9.jpg)
+![when](https://cloud.githubusercontent.com/assets/38136/13137335/93b791d6-d620-11e5-9dbf-4fefdf6f9ace.jpg) ![then](https://cloud.githubusercontent.com/assets/38136/13137182/9eb273cc-d61f-11e5-83b6-6fd2984bb3f9.jpg)
 
 
 #### Examples
