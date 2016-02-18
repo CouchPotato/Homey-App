@@ -52,8 +52,6 @@ var App = Base.extend({
 
 			// loop all triggers
 			speech.triggers.forEach(function(trigger){
-				Homey.log(trigger);
-
 				// trigger.id == download, add
 				if(['download', 'add'].indexOf(trigger.id) > -1){
 					var movie_name = speech.transcript.substring(trigger.position + trigger.text.length);

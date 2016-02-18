@@ -39,15 +39,16 @@
 			"id": "add",
 			"importance": 0.9,
 			"triggers": {
-				"en": [ "add movie", "add the movie" ],
-				"nl": [ "de film", "download de film" ]
+				"en": [ "add movie", "add the movie", "add to couchpotato" ],
+				"nl": [ "de film", "download de film", "voeg to aan couchpotato" ]
 			}
 		},
 		{
 			"id": "to_watchlist",
 			"importance": 1,
 			"triggers": {
-				"en": [ "to my watch list", "to my collection", "to couchpotato",
+				"en": [ "couchpotato", "couch potato", "watchlist", "watch list", "wantedlist", "wanted list",
+					"to my watch list", "to my collection", "to couchpotato",
 					"to wanted list", "add new movie to couchpotato", "add new movie"],
 				"nl": [ "aan de filmlijst", "aan mijn watchlist", "aan wanted",
 					"aan mijn lijst", "aan mijn filmlijst", "aan mijn collectie",
