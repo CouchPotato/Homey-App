@@ -6,6 +6,15 @@
 		"en": "CouchPotato",
 		"nl": "CouchPotato"
     },
+	"category": "video",
+	"description": {
+		"en": "Allow adding movies to your CouchPotato wanted list",
+		"nl": "Voeg films toe aan je CouchPotato wanted list"
+	},
+	"images": {
+		"small": "assets/images/small.png",
+		"large": "assets/images/large.png"
+	},
     "author": {
         "name": "Ruud Burger",
         "email": "ruud@crashdummy.nl"
