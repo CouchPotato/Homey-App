@@ -45,7 +45,6 @@ var App = Base.extend({
 		Homey.manager('speech-input').on('speech', function(speech) {
 			Homey.log(speech);
 
-			Homey.log(Homey.manager('settings').get('use_default'));
 			if(!Homey.manager('settings').get('use_default')) return;
 
 			// Trigger leds while searching here
