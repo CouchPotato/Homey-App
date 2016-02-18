@@ -16,7 +16,7 @@ var webhook_id;
  *
  */
 
-var debug = true;
+var debug = false;
 var log = function(message){
 	if(debug){
 		Homey.log('Saying: ' + message)
@@ -170,7 +170,7 @@ var App = Base.extend({
 	 * @param args
 	 */
 	incomingWebhook: function(args){
-		Homey.log('incomingWebhook: ', args);
+		Homey.log('incomingWebhook: ', args.body.type);
 
 		var message = args.body.message,
 			type = args.body.type,
