@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"compatibility": "0.x || 1.x",
     "name": {
-        "en": "CouchPotato"
+		"en": "CouchPotato",
+		"nl": "CouchPotato"
     },
     "author": {
         "name": "Ruud Burger",
@@ -21,7 +22,7 @@
     "speech": [
 		{
 			"id": "download",
-			"importance": 1,
+			"importance": 0.9,
 			"triggers": {
 				"en": [ "download the movie" ],
 				"nl": [ "download de film" ]
@@ -29,7 +30,7 @@
 		},
 		{
 			"id": "add",
-			"importance": 1,
+			"importance": 0.9,
 			"triggers": {
 				"en": [ "add movie", "add the movie" ],
 				"nl": [ "de film", "download de film" ]
@@ -39,8 +40,12 @@
 			"id": "to_watchlist",
 			"importance": 1,
 			"triggers": {
-				"en": [ "to my watchlist", "to my collection" ],
-				"nl": [ "aan de filmlijst", "aan mijn watchlist", "aan mijn lijst", "aan mijn filmlijst", "aan mijn collectie" ]
+				"en": [ "to my watch list", "to my collection", "to couchpotato",
+					"to wanted list", "add new movie to couchpotato", "add new movie"],
+				"nl": [ "aan de filmlijst", "aan mijn watchlist", "aan wanted",
+					"aan mijn lijst", "aan mijn filmlijst", "aan mijn collectie",
+					"voeg nieuwe film toe", "voeg film toe",
+					"aan couchpotato", "toe aan couchpotato", "voeg toe aan couchpotato"]
 			}
 		}
     ],

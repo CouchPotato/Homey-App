@@ -2,12 +2,25 @@
 <html>
 <head>
 	<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+	<style type="text/css">
+		#saved {
+			position: fixed;
+			top:0;
+			right:0;
+			text-align: right;
+		}
+
+		p, label, h1, h2, h3 {
+			opacity: 1 !important;
+		}
+	</style>
 </head>
 <body>
-	<h1>CouchPotato Settings</h1>
-	<p>Please make sure to fill in the api settings before trying anything, there is no error checking yet</p>
+	<div id="saved">Saved</div>
+	<h1 data-i18n="settings.title"></h1>
+	<p data-i18n="settings.subtitle"></p>
 
-	<h2>API settings</h2>
+	<h2 data-i18n="settings.api_title"></h2>
 	<div class="field row">
 		<label for="host">Host</label>
 		<input id="host" type="text" value="" />
@@ -18,7 +31,7 @@
 	</div>
 
 	<h2>Webhook</h2>
-	<p>This lets CouchPotato send snatched and download updates to your Homey. Create a new one at <a href="https://webhooks.athom.com/" target="_blank">webhooks.athom.com</a></p>
+	<p data-i18n="settings.webhook_subtitle"></p>
 	<div class="field row">
 		<label for="webhook_url">Url</label>
 		<input id="webhook_url" type="text" value="" />
@@ -32,16 +45,16 @@
 		<input id="webhook_secret" type="text" value="" />
 	</div>
 
-	<h2>Other settings</h2>
+	<h2 data-i18n="settings.other_settings"></h2>
 	<div class="field">
 		<input id="use_default" type="checkbox" value="1" />
-		<label for="use_default">Use default speech settings</label>
-		<p>Listen to "Add the movie Moviename" or "Download the movie Moviename". Otherwise use your own flow to trigger CouchPotato.</p>
+		<label for="use_default" data-i18n="settings.use_default"></label>
+		<p data-i18n="settings.use_default_subtitle"></p>
 	</div>
 	<div class="field">
 		<input id="skip_confirm" type="checkbox" value="1" />
-		<label for="skip_confirm">Don't confirm movie before adding</label>
-		<p>For when you're feeling lucky. Not recommended though.</p>
+		<label for="skip_confirm" data-i18n="settings.skip_confirm"></label>
+		<p data-i18n="settings.skip_confirm_subtitle"></p>
 	</div>
 
 	<!--// Connect qualities, maybe allow people to fill in words they want to trigger the qualities?-->
@@ -73,6 +86,7 @@
 				});
 
 			});
+
 		};
 
 		$('body').on('change keyup paste', 'input', function(e){

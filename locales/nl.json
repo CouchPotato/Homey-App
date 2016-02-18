@@ -1,1 +1,20 @@
-{}
+{
+	"settings": {
+		"title": "CouchPotato instellingen",
+		"subtitle": "Zorg ervoor dat je eerst de API instellingen invult voor je iets anders doet, er is nog geen foutafhandeling.",
+		"api_title": "API instellingen",
+		"webhook_subtitle": "Dit laat CouchPotato communiceren met Homey. Maak een nieuwe aan op <a href=\"https://webhooks.athom.com/\" target=\"_blank\">webhooks.athom.com</a>",
+		"other_settings": "Andere instellingen",
+		"use_default": "Gebruik standaard flows",
+		"use_default_subtitle": "Luister naar <i>'Download de film Moviename'</i> of <i>'Voeg nieuwe film toe'</i>. Je kan dit ook uitzetten en je eigen flows maken.",
+		"skip_confirm": "Niet bevestigen, voor een film wordt toegevoegd",
+		"skip_confirm_subtitle": "Als je denkt dat alles perfect werkt. Niet aan te raden."
+	},
+	"messages": {
+		"search_all_wanted": "Zoek alle films in wanted",
+		"what_movie?": "Welke film wil je dat ik toevoeg aan CouchPotato?",
+		"sorry_couldnt_add": "Sorry, ik kon niets vinden",
+		"not_adding": "Ik zal niets toevoegen",
+		"confirm": "Wil je __title__ toevoegen aan CouchPotato?"
+	}
+}

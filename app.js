@@ -29,8 +29,6 @@ var log = function(message){
 var App = Base.extend({
 
 	constructor: function(){
-		Homey.log('constructor');
-
 		this.updateSettings();
 		this.listenToSettingsChange();
 		this.listenToSpeech();
@@ -100,7 +98,7 @@ var App = Base.extend({
 		Homey.manager('flow').on('action.search_all', function(callback){
 			self.request('movie.searcher.full_search')
 				.then(function(){
-					log(__('Searching all movies in wanted'));
+					log(__('messages.search_all_wanted'));
 					callback(null, true);
 				});
 		});
@@ -222,7 +220,7 @@ var App = Base.extend({
 		Homey.log('doAsk');
 
 		return new Promise(function(resolve, reject){
-			Homey.manager( 'speech-input').ask(__('What movie do you want me to add?'), function(err, result){
+			Homey.manager( 'speech-input').ask(__('messages.what_movie?'), function(err, result){
 				Homey.log('doAsk results', err, result);
 				if(result){
 					resolve(result);
@@ -243,7 +241,7 @@ var App = Base.extend({
 				return self.doSearch(movie_name)
 			})
 			.catch(function(){
-				log(__('Sorry, couldn\'t find anything'));
+				log(__('messages.sorry_couldnt_add'));
 			})
 			.then(self.doConfirmResult.bind(self))
 			.catch(function(err){ Homey.log(err); })
@@ -276,7 +274,7 @@ var App = Base.extend({
 					resolve(movie);
 				}
 				else {
-					var question = __('Do you want me to add __title__ to your wanted list?', {'title': movie.original_title});
+					var question = __('messages.confirm', {'title': movie.original_title});
 
 					Homey.manager( 'speech-input').confirm(question, function(err, confirmed){
 						//var confirmed = true;
@@ -286,7 +284,7 @@ var App = Base.extend({
 							resolve(movie);
 						}
 						else {
-							reject(__('Not adding it.'));
+							reject(__('messages.not_adding'));
 						}
 
 					});

@@ -1,1 +1,20 @@
-{}
+{
+	"settings": {
+		"title": "CouchPotato settings",
+		"subtitle": "Please make sure to fill in the api settings before trying anything, there is no error checking yet",
+		"api_title": "API settings",
+		"webhook_subtitle": "This lets CouchPotato send snatched and download updates to your Homey. Create a new one at <a href=\"https://webhooks.athom.com/\" target=\"_blank\">webhooks.athom.com</a>",
+		"other_settings": "Other settings",
+		"use_default": "Use default speech settings",
+		"use_default_subtitle": "Listen to <i>'Add the movie Moviename'</i> or <i>'Add new movie to CouchPotato'</i>. Otherwise use your own flow to trigger CouchPotato.",
+		"skip_confirm": "Don't confirm movie before adding",
+		"skip_confirm_subtitle": "For when you're feeling lucky. Not recommended though."
+	},
+	"messages": {
+		"search_all_wanted": "Searching all movies in wanted",
+		"what_movie?": "What movie do you want me to add?",
+		"sorry_couldnt_add": "Sorry, couldn't find anything",
+		"not_adding": "Not adding it.",
+		"confirm": "Do you want me to add __title__ to CouchPotato?"
+	}
+}
