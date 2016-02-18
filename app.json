@@ -12,12 +12,10 @@
     },
 	"permissions": [
 		"homey:manager:speech-input",
-		"homey:manager:speech-output",
-		"homey:manager:ledring"
+		"homey:manager:speech-output"
 	],
 	"dependencies": {
-		"request-promise": "*",
-		"bluebird": "*"
+		"request-promise": "*"
 	},
     "speech": [
 		{
