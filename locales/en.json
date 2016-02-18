@@ -13,8 +13,8 @@
 	"messages": {
 		"search_all_wanted": "Searching all movies in wanted",
 		"what_movie?": "What movie do you want me to add?",
-		"sorry_couldnt_add": "Sorry, couldn't find anything",
-		"not_adding": "Not adding it.",
+		"sorry_couldnt_add": "I'm sorry, Dave. I'm afraid I can't do that.",
+		"not_adding": "I'm sorry, Dave. I won't add it.",
 		"confirm": "Do you want me to add __title__ to CouchPotato?"
 	}
 }
