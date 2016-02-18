@@ -289,7 +289,7 @@ var App = Base.extend({
 			});
 		}
 		else {
-			throw 'Can\'t find anything';
+			throw __('messages.sorry_couldnt_add');
 		}
 
 	},
