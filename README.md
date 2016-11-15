@@ -3,6 +3,8 @@
 Allow adding movies to your watchlist via [Homey](https://www.athom.com/). 
 You can talk to it, tell it to do stuff, it's like the future.
 
+Notice: I don't have a Homey anymore, so if someone wants to takeover this project, please let me know.
+
 ## Features
 
 - Add movies
