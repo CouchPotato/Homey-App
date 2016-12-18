@@ -62,8 +62,8 @@
 			{
 				"id": "snatched",
 				"title": {
-					"en": "Movie downloaded",
-					"nl": "Film gedownload"
+					"en": "Movie snatched",
+					"nl": "Film naar downloader gestuurd"
 				},
 				"tokens": [
 					{
@@ -82,8 +82,8 @@
 			{
 				"id": "downloaded",
 				"title": {
-					"en": "Movie snatched",
-					"nl": "Film naar downloader gestuurd"
+					"en": "Movie downloaded",
+					"nl": "Film gedownload"
 				},
 				"tokens": [
 					{
